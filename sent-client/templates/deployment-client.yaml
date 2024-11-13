@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: image-capture-client
+spec:
+  replicas: {{ .Values.client.replicas }}
+  selector:
+    matchLabels:
+      app: image-capture-client
+  template:
+    metadata:
+      labels:
+        app: image-capture-client
+    spec:
+      nodeSelector:
+        {{- toYaml .Values.client.nodeSelector | nindent 8 }}
+      containers:
+        - name: image-capture-client
+          image: "{{ .Values.image.repository }}/{{ .Values.image.clientTag }}"
+          imagePullPolicy: Always  # Force Kubernetes à vérifier les nouvelles versions de l'image
+          env:
+            - name: API_URL
+              value: "{{ .Values.client.apiUrl }}"
+          volumeMounts:
+            - name: video-device
+              mountPath: /dev/video0
+              readOnly: true
+          securityContext:
+            privileged: true  # Donne l'accès aux périphériques pour le conteneur
+      volumes:
+        - name: video-device
+          hostPath:
+            path: /dev/video0
+            type: CharDevice  # Type de périphérique spécial pour la caméra

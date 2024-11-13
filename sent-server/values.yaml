@@ -1,0 +1,15 @@
+image:
+  repository: bobmorane  # Remplacez par votre dépôt d'images Docker
+  serverTag: "sent-server:latest"
+
+server:
+  replicas: 1
+  port: 5000
+  nodeSelector:
+    kubernetes.io/hostname: poc-vm  # Label du nœud cible pour le serveur
+
+ingress:
+  enabled: true
+  hostname: "poc.faf.dev.gcp.renault.com"  # Changez avec le nom de domaine souhaité
+  path: "/"
+  className: "nginx"  # Contrôleur d'Ingress à utiliser, par exemple "nginx" pour le NGINX Ingress Controller

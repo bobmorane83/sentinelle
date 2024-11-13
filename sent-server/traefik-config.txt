@@ -1,0 +1,15 @@
+apiVersion: helm.cattle.io/v1
+kind: HelmChartConfig
+metadata:
+  name: traefik
+  namespace: kube-system
+spec:
+  valuesContent: |-
+    image:
+      name: rancher/mirrored-library-traefik
+      tag: 2.9.4
+    ports:
+      tcp1:
+        port: 10000
+        expose: true
+        exposedPort: 10000

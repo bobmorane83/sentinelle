@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-upload-server
+spec:
+  replicas: {{ .Values.server.replicas }}
+  selector:
+    matchLabels:
+      app: flask-upload-server
+  template:
+    metadata:
+      labels:
+        app: flask-upload-server
+    spec:
+      nodeSelector:
+        {{- toYaml .Values.server.nodeSelector | nindent 8 }}
+      containers:
+        - name: flask-upload-server
+          image: "{{ .Values.image.repository }}/{{ .Values.image.serverTag }}"
+          ports:
+            - containerPort: {{ .Values.server.port }}
+          volumeMounts:
+            - mountPath: /app/uploads
+              name: upload-storage
+      volumes:
+        - name: upload-storage
+          emptyDir: {}
