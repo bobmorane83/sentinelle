@@ -12,8 +12,6 @@ spec:
       labels:
         app: image-capture-client
     spec:
-      nodeSelector:
-        {{- toYaml .Values.client.nodeSelector | nindent 8 }}
       containers:
         - name: image-capture-client
           image: "{{ .Values.image.repository }}/{{ .Values.image.clientTag }}"
