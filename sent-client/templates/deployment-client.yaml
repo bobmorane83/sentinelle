@@ -12,6 +12,7 @@ spec:
       labels:
         app: image-capture-client
     spec:
+      hostNetwork: true
       containers:
         - name: image-capture-client
           image: "{{ .Values.image.repository }}/{{ .Values.image.clientTag }}"

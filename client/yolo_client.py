@@ -29,7 +29,7 @@ frame_counter = 0
 def capture_image():
     global frame_counter
     # Ouvrir la caméra USB (0 pour la première caméra, 1 pour la deuxième, etc.)
-    cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture(2)
 
     if not cap.isOpened():
         print("Erreur: Impossible d'ouvrir la caméra.")
