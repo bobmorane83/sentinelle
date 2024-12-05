@@ -1,36 +1,36 @@
 # ingressroute-flask-upload.yaml
 
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: flask-upload-ingress2
-  namespace: default
-  annotations:
-    kubernetes.io/ingress.class: traefik
-    traefik.ingress.kubernetes.io/router.entrypoints: tcp1
-spec:
-  rules:
-    - host: poc.faf.dev.gcp.renault.com
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: flask-upload-server
-                port:
-                  number: 5000
-
-# apiVersion: traefik.io/v1alpha1
-# kind: IngressRouteTCP
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
 # metadata:
-#   name: flask-upload-ingress-tcp
+#   name: flask-upload-ingress2
 #   namespace: default
+#   annotations:
+#     kubernetes.io/ingress.class: traefik
+#     traefik.ingress.kubernetes.io/router.entrypoints: tcp1
 # spec:
-#   entryPoints:
-#     - tcp1
-#   routes:
-#     - match: HostSNI(`*`)
-#       services:
-#       - name: flask-upload-server
-#         port: 5000
+#   rules:
+#     - host: poc.faf.dev.gcp.renault.com
+#       http:
+#         paths:
+#           - path: /
+#             pathType: Prefix
+#             backend:
+#               service:
+#                 name: flask-upload-server
+#                 port:
+#                   number: 5000
+
+apiVersion: traefik.io/v1alpha1
+kind: IngressRouteTCP
+metadata:
+  name: flask-upload-ingress-tcp
+  namespace: default
+spec:
+  entryPoints:
+    - tcp1
+  routes:
+    - match: HostSNI(`*`)
+      services:
+      - name: flask-upload-server
+        port: 5000
