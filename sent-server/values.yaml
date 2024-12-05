@@ -1,6 +1,6 @@
 image:
   repository: bobmorane  # Remplacez par votre dépôt d'images Docker
-  serverTag: "sent-server:latest"
+  serverTag: "jpo-server2:latest"
 
 server:
   replicas: 1
